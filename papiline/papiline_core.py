@@ -12,10 +12,9 @@ T = TypeVar('T')
 
 __all__ = [
     'Pipeline',
-    'ContentTypes',
 ]
 
-logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.DEBUG)
 
 
 class Context:
@@ -139,9 +138,4 @@ class Pipeline(DoPrepareData, DoPrepareRequest, DoRequest, DoValidate):
         self.url_prefix = url_prefix
         self.base_http_path = urljoin(f"{self.protocol}://{self.host}:{self.port}", self.url_prefix)
         return self
-
-
-class ContentTypes:
-    APPLICATION_JSON = "application/json"
-    APPLICATION_VND_API_JSON = "application/vnd.api+json"
 
