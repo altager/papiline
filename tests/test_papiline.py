@@ -1,4 +1,4 @@
-from papiline.papiline_core import Pipeline, ContentTypes
+from papiline import Pipeline, ContentTypes
 from py_fake_server import FakeServer
 
 

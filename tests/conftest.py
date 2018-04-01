@@ -1,7 +1,7 @@
 import pytest
 
 from py_fake_server import FakeServer
-from papiline.papiline_core import Pipeline
+from papiline import Pipeline
 
 
 @pytest.fixture(scope="session")
