@@ -1,4 +1,4 @@
-#Papiline: Build your own requests pipeline 
+# Papiline: Build your own requests pipeline 
 [![Build Status](https://travis-ci.org/altager/papiline.svg?branch=master)](https://travis-ci.org/altager/papiline)
 [![codecov](https://codecov.io/gh/altager/papiline/branch/master/graph/badge.svg)](https://codecov.io/gh/altager/papiline)
 
@@ -13,7 +13,7 @@
 ## Install 
 `python3 setup.py install`
 
-##Overview
+## Overview
 
 Usually, when we want to create HTTP request we can simply divide it in several stages such as: 
 PrepareData -> PrepareRequest -> ExecuteRequest -> ValidateResponse. 
@@ -21,7 +21,7 @@ What if we can create representation of such pipeline in our code? That's all th
 
 As an example - it's very useful for API-test creation.
 
-##Getting Started
+## Getting Started
 
 Let's start from simple example:
 
@@ -86,7 +86,7 @@ It tells us what was the pipeline `Context` condition at each stage:
 
 That's simple, isn't it?
 
-##Documentation by example
+## Documentation by example
 
 `NOTE: On each stage of pipeline you can get Context variables(response_data, status_code etc) simply 
 by using dot expression. Example: chain.context.response_data. 
