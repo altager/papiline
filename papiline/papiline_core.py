@@ -90,7 +90,7 @@ class DoPrepareData(Pipeline):
         return self
 
     @lazy_compatible
-    def do_prepare_update_data_json(self, new_data: dict) -> 'DoPrepareData':
+    def do_prepare_data_json_update(self, new_data: dict) -> 'DoPrepareData':
         self.context.request_data.update(new_data)
         self.context.request_data_raw = json.dumps(self.context.request_data)
         return self
