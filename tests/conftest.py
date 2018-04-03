@@ -1,7 +1,7 @@
 import pytest
 
 from py_fake_server import FakeServer
-from papiline import Pipeline
+from papiline import Chain
 
 
 @pytest.fixture(scope="session")
@@ -20,5 +20,5 @@ def clear_server(server: FakeServer) -> None:
 
 
 @pytest.fixture(scope='session')
-def pipeline() -> Pipeline:
-    return Pipeline().do_pipeline_init("localhost", port="8081")
+def chain() -> Chain:
+    return Chain("localhost", port="8081")

@@ -26,7 +26,6 @@ def find_version(*file_paths):
 requires = [
     "requests==2.18.4",
     "jsonschema==2.6.0",
-    "Faker==0.8.12",
 ]
 
 tests_require = [
@@ -38,7 +37,7 @@ tests_require = [
 setup(
     name="papiline",
     version=find_version("papiline", "__init__.py"),
-    description="Make API testing easier!",
+    description="Build your own requests pipeline!",
     url="https://github.com/altager/papiline",
     author="Sergey Ovodov",
     author_email="orion.tide@gmail.com",
