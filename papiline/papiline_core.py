@@ -19,19 +19,18 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 def lazy_compatible(f):
     def wrapped(self, *args, **kwargs):
-        if self.lazy:
+        if self._lazy:
             self.task.append((f, self, args, kwargs))
             return self
         else:
-            f(self, *args, **kwargs)
-            return
-
+            return f(self, *args, **kwargs)
     return wrapped
 
 
 class Context:
     def __init__(self):
         self.request_data: Dict[str, T] = {}
+        self.url_params: Dict[str, str] = {}
         self.request_data_raw: str = None
         self.headers: Dict[str, T] = {}
         self.cookies: Dict[str, T] = {}
@@ -42,6 +41,7 @@ class Context:
 
     def __str__(self) -> str:
         return f"[\n\tRequest data raw: {self.request_data_raw}\n" \
+               f"\tUrl params: {self.url_params}\n" \
                f"\tHeaders: {self.headers}\n" \
                f"\tCookies: {self.cookies}\n" \
                f"\tResponse data: {self.response_data}\n" \
@@ -49,7 +49,7 @@ class Context:
                f"\tStatus code: {self.status_code}\n]"
 
     def clear(self):
-        self.response, self.response_data, self.response_data_raw = None, None, None
+        self.response, self.response_data, self.response_data_raw, self.status_code = None, None, None, None
 
 
 class Pipeline:
@@ -78,6 +78,11 @@ class Pipeline:
 
 
 class DoPrepareData(Pipeline):
+    @lazy_compatible
+    def do_prepare_data_url_params(self, params_dict: Dict) -> 'DoPrepareData':
+        self.context.url_params = params_dict
+        return self
+
     @lazy_compatible
     def do_prepare_data_json(self, json_data_dict: Dict) -> 'DoPrepareData':
         self.context.request_data = json_data_dict
@@ -115,7 +120,7 @@ class DoRequest(Pipeline):
         self.context.clear()
         self.context.response = self.session.get(
             urljoin(self.base_http_path, api_path),
-            params=self.context.request_data_raw,
+            params=self.context.url_params,
             headers=self.context.headers,
             cookies=self.context.cookies,
             **kwargs
@@ -131,6 +136,7 @@ class DoRequest(Pipeline):
             data=self.context.request_data_raw,
             headers=self.context.headers,
             cookies=self.context.cookies,
+            params=self.context.url_params,
             **kwargs
         )
         self.__finalize_request()
@@ -144,6 +150,7 @@ class DoRequest(Pipeline):
             data=self.context.request_data_raw,
             headers=self.context.headers,
             cookies=self.context.cookies,
+            params=self.context.url_params,
             **kwargs
         )
         self.__finalize_request()
@@ -156,6 +163,7 @@ class DoRequest(Pipeline):
             urljoin(self.base_http_path, api_path),
             headers=self.context.headers,
             cookies=self.context.cookies,
+            params=self.context.url_params,
             **kwargs
         )
         self.__finalize_request()
