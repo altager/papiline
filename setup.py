@@ -24,7 +24,7 @@ def find_version(*file_paths):
 
 
 requires = [
-    "requests==2.18.4",
+    "requests==2.20.0",
     "jsonschema==2.6.0",
 ]
 
