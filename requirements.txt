@@ -18,6 +18,6 @@ python-mimeparse==1.6.0
 requests==2.20.0
 six==1.11.0
 urllib3==1.23
-waitress==1.1.0
+waitress==1.4.0
 WebOb==1.7.4
 WebTest==2.0.28
